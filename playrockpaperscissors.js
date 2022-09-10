@@ -27,14 +27,19 @@ function checkifValid(){
   let inputMove;
 
   while(flag===false){
-        
-    inputMove= prompt("Enter a valid move");
-    let capitalise_inputMove = inputMove.toUpperCase();
 
-    if(capitalise_inputMove==="ROCK"||capitalise_inputMove==="PAPER"||capitalise_inputMove==="SCISSORS"){  //capitalizing input and then comparing for valid move
+    inputMove= prompt("Enter a valid move");           
+    let capitalise_inputMove = inputMove.toUpperCase();           //capitalizing input and then comparing for valid move
+
+    if(capitalise_inputMove==="ROCK"||capitalise_inputMove==="PAPER"||capitalise_inputMove==="SCISSORS"){  
        flag = true;
     }
   }
+  inputMove = inputMove.toLowerCase(); //lower the case of word, now only first letter capitalization is left
+  let capitalisefirstLetter = (inputMove.charAt(0)).toUpperCase(); //capitalised the first letter of move
+  
+  inputMove = capitalisefirstLetter + inputMove.substring(1,inputMove.length); //concatenate first and rest of the part of string
+
   return inputMove;
 }
 
