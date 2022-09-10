@@ -12,8 +12,7 @@ function play(){
     computerSelection = getComputer();
     playerSelection = checkifValid();
     
-    console.log(computerSelection);
-    console.log(playerSelection);
+    compareComputermovewithPlayermove(computerSelection,playerSelection);
 }
 
 function checkifValid(){
@@ -41,6 +40,72 @@ function checkifValid(){
   inputMove = capitalisefirstLetter + inputMove.substring(1,inputMove.length); //concatenate first and rest of the part of string
 
   return inputMove;
+}
+
+function compareComputermovewithPlayermove(computerMove, playerMove){
+
+  /*Write only winning combination wrt to computer. I mean
+    PaperRock: paper beats rock
+    RockScissors: rock beats scissor
+    ScissorsPaper: 
+    PaperPaper-10
+    RockRock-8
+    ScissorsScissors-16
+    samesam
+
+    appended computer move with playermove
+    if any of this occurs, Computer wins and "computer move " beats "player move"
+    else, Player wins and "player move " beats "computer move"*/
+
+    let concat = computerMove + playerMove;
+    let lengthof_concat = concat.length;
+    
+    if(lengthof_concat===8||lengthof_concat===10||lengthof_concat===16){
+      declareResult("DRAW",computerMove,playerMove);
+
+    }
+
+    else {
+
+      switch(concat){
+
+        case "PaperRock":
+          declareResult("Computer",computerMove,playerMove);
+          break;
+
+        case "ScissorsPaper":
+          declareResult("Computer",computerMove,playerMove);
+          break;
+        
+        case "RockScissors":
+          declareResult("Computer",computerMove,playerMove);
+          break;
+
+        default:
+          declareResult("Player",computerMove,playerMove);        
+      }
+    }
+}
+
+function declareResult(Winner, computerMove, playerMove){
+  
+  /*three var required, winner, computermove,playermove*/
+
+  console.log(`ComputerMove: ${computerMove}\nPlayerMove:${playerMove}`);
+  switch(Winner){
+
+    case "DRAW":
+      console.log(`Its a ${Winner}`);
+      break;
+
+    case "Computer":
+      console.log(`${Winner} wins, ${computerMove} beats ${playerMove}`);
+      break;
+
+    default:
+      console.log(`${Winner} wins, ${playerMove} beats ${computerMove}`);
+      break;
+  }
 }
 
 play(); //calling play function
