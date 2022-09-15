@@ -1,0 +1,30 @@
+.icons, .names{
+    display: flex;
+    justify-content: space-around;
+}
+
+.player , .computer{
+    display: flex;
+    gap:20px;
+    /* margin-left: 700px; */
+}
+
+.rock, .paper , .scissors{
+
+    border: 5px solid rgb(235 188 225);
+    border-radius: 50%;
+    height: 120px;
+    width:120px;
+    padding: 5px;
+    
+}
+
+.p:hover {
+    transform: scale(1.3); 
+    border-color: rgb(231 7 183);
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+}
