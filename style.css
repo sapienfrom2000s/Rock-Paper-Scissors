@@ -24,7 +24,19 @@
     border-color: rgb(231 7 183);
 }
 
-.button {
+.play-button {
     display: flex;
     justify-content: center;
+}
+
+.cloned-character {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+    transform: scale(1.4);
+}
+
+.cloned-character_p{
+    border-color: green;
 }

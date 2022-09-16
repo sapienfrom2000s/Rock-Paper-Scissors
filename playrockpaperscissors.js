@@ -1,11 +1,11 @@
 
-// rpsListing = ["Rock","Paper","Scissors"];        //rock paper scissors listing
+rpsListing = ["Rock","Paper","Scissors"];        //rock paper scissors listing
 
-// function getComputer(){   //Computer chooses its move
+function getComputer(){   //Computer chooses its move
 
-//   let indexOf_rpsListing = Math.floor(Math.random()*3);
-//   return rpsListing[indexOf_rpsListing];
-// }
+  let indexOf_rpsListing = Math.floor(Math.random()*3);
+  return rpsListing[indexOf_rpsListing];
+}
 
 // function play(){
 
@@ -113,5 +113,32 @@
 
 //activate click on images
 
-const image = document.getElementsByClassName(".p, .rock");
-console.log(image);
+const playerFighters = document.querySelectorAll(".p");
+// const clonedplayerFighter = playerFighter[0].cloneNode(true);
+// console.log(playerFighters);
+
+
+function playerCharacter(){
+  for(let i=0;i<playerFighters.length;i++){  //I myself don't understand the loop
+    playerFighters[`${i}`].addEventListener("click",function(e){
+    const chosenFighter = e.target;
+    const clonedCharacter = chosenFighter.cloneNode(true); //made copy of original object, so that it does not get replaced
+    const positionforChosenFighter = document.getElementsByClassName("cloned-character_p");
+    positionforChosenFighter[0].appendChild(clonedCharacter); //chose character by player displayed for fight
+    // console.log(positionforChosenFighter[0]);  
+    computerCharacter();
+    },{once : true});
+  }
+}
+
+function computerCharacter(){
+  // console.log("Is it running");
+  const characterParameter_c = getComputer().toLowerCase(); //lowercase the parameter
+  const chosenFighter = document.querySelector(`.computer > .${characterParameter_c}`);
+  const clonedCharacter = chosenFighter.cloneNode(true); //made copy of original object, so that it does not get replaced
+  const positionforChosenFighter = document.getElementsByClassName("cloned-character_c");
+  positionforChosenFighter[0].appendChild(clonedCharacter); //chose character by player displayed for fight
+}
+
+playerCharacter();
+
