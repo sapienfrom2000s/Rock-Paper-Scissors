@@ -5,9 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="playrockpaperscissors.js"></script>
+    <!-- <script src="playrockpaperscissors.js"></script> -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <div class="page">
+        <div class="main">
+            <div class="select-buttons" style= "border-right: 0;"> 
+                <input class="rock" type="image" width="110px" height="auto" src="images/rock.png">
+                <input class="paper" type="image" width="110px" height="110px" src="images/paper.png">
+                <input class="scissors" type="image" width="110px" height="110px" src="images/scissors.png">
+            </div>
+            <div class="display-arena">
+                <div  class="chosen-buttons">
+                    <input class="player" type="image" width="150px" height="150px" src="images/human.png">
+                    <input class="computer" type="image" width="150px" height="150px" src="images/computer.png">            
+                </div>
+                <div class="message">Make your move</div>
+                <div class="score">0-0</div>
+            </div>
+        </div>
+            
+        <div style="background-image: url(images/header.jpg)" class="header">
+            <h3>R</h3>
+            <h3>P</h3>
+            <h3>S</h3>
+        </div>
     
+    </div>
+
+    <button class="play-again">Play Again</button>
+    <script src="playrockpaperscissors.js"></script>
+
 </body>
 </html>

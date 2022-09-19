@@ -1,48 +1,18 @@
 
-rpsListing = ["Rock","Paper","Scissors"];        //rock paper scissors listing
+  let computerScore = 0,
+    playerScore = 0; //I want to get rid of these global variables they look awful.
 
-function getComputer(){
 
+
+function getComputerMove(){
+  
+    rpsListing = ["Rock","Paper","Scissors"];        //rock paper scissors listing
     let indexOf_rpsListing = Math.floor(Math.random()*3);
     return rpsListing[indexOf_rpsListing];
 }
 
-function play(){
 
-    computerSelection = getComputer();
-    playerSelection = checkifValid();
-    
-    compareComputermovewithPlayermove(computerSelection,playerSelection);
-}
-
-function checkifValid(){
-  
-  /*Player enters his move in checkifValid function
-    If he enters valid move 
-    function returns the move if valid
-    else ask the player to enter his move again*/
-  
-  let flag = false; //to break the while loop
-  let inputMove;
-
-  while(flag===false){
-
-    inputMove= prompt("Enter a valid move");           
-    let capitalise_inputMove = inputMove.toUpperCase();           //capitalizing input and then comparing for valid move
-
-    if(capitalise_inputMove==="ROCK"||capitalise_inputMove==="PAPER"||capitalise_inputMove==="SCISSORS"){  
-       flag = true;
-    }
-  }
-  inputMove = inputMove.toLowerCase(); //lower the case of word, now only first letter capitalization is left
-  let capitalisefirstLetter = (inputMove.charAt(0)).toUpperCase(); //capitalised the first letter of move
-  
-  inputMove = capitalisefirstLetter + inputMove.substring(1,inputMove.length); //concatenate first and rest of the part of string
-
-  return inputMove;
-}
-
-function compareComputermovewithPlayermove(computerMove, playerMove){
+function play(computerMove, playerMove){
 
   /*Write only winning combination wrt to computer. I mean
     PaperRock: paper beats rock
@@ -57,11 +27,13 @@ function compareComputermovewithPlayermove(computerMove, playerMove){
     if any of this occurs, Computer wins and "computer move " beats "player move"
     else, Player wins and "player move " beats "computer move"*/
 
+    displayChosenCharacters(computerMove,playerMove);
+
     let concat = computerMove + playerMove;
     let lengthof_concat = concat.length;
     
     if(lengthof_concat===8||lengthof_concat===10||lengthof_concat===16){
-      declareResult("DRAW",computerMove,playerMove);
+      declareResult("Draw",computerMove,playerMove);
 
     }
 
@@ -70,42 +42,103 @@ function compareComputermovewithPlayermove(computerMove, playerMove){
       switch(concat){
 
         case "PaperRock":
-          declareResult("Computer",computerMove,playerMove);
+          declareResult("Computer");
           break;
 
         case "ScissorsPaper":
-          declareResult("Computer",computerMove,playerMove);
+          declareResult("Computer");
           break;
         
         case "RockScissors":
-          declareResult("Computer",computerMove,playerMove);
+          declareResult("Computer");
           break;
 
         default:
-          declareResult("Player",computerMove,playerMove);        
+          declareResult("Player");        
       }
     }
 }
 
-function declareResult(Winner, computerMove, playerMove){
+function declareResult(Winner){
   
   /*three var required, winner, computermove,playermove*/
 
-  console.log(`ComputerMove: ${computerMove}\nPlayerMove:${playerMove}`);
+  let grabWinnerBanner = document.querySelector(".message");
+  let grabScoreBanner = document.querySelector(".score");
+
   switch(Winner){
 
-    case "DRAW":
-      console.log(`Its a ${Winner}`);
+    case "Draw":
+      grabWinnerBanner.innerHTML = "Draw";
       break;
 
     case "Computer":
-      console.log(`${Winner} wins, ${computerMove} beats ${playerMove}`);
+      computerScore++;      
+      grabWinnerBanner.innerHTML = `${Winner} wins this round`;
+      grabScoreBanner.innerHTML = `${playerScore}-${computerScore}`;
+      checkForWin("Computer");
       break;
 
     default:
-      console.log(`${Winner} wins, ${playerMove} beats ${computerMove}`);
+      playerScore++;
+      grabWinnerBanner.innerHTML = `${Winner} wins this round`;
+      grabScoreBanner.innerHTML = `${playerScore} - ${computerScore}`;
+      checkForWin("Player");
       break;
   }
 }
 
-play(); //calling play function
+function checkForWin(winner){
+  if(computerScore===5||playerScore==5){
+    let grabMessage = document.querySelector(".message");
+    grabMessage.innerHTML = `${winner} wins the game`;
+    displayPlayAgain();
+    disableButtons();
+  }
+}
+
+function displayPlayAgain(){
+  let grabButton = document.querySelector(".play-again");
+  grabButton.style.visibility = "visible";
+  grabButton.addEventListener('click',function(){window.location.reload();});
+}
+
+function disableButtons(){
+  let disableInputButtons = document.querySelector(".select-buttons");
+  // console.log(alpha.childNodes);
+  for(let i=1;i<=5; i++){
+    disableInputButtons.childNodes[i].disabled = 'true';
+  }
+}
+
+function displayChosenCharacters(computerMove,playerMove){
+
+  playerMove = playerMove.toLowerCase();
+  computerMove = computerMove.toLowerCase();
+
+  let playerFrame = document.querySelector(".player");
+  playerFrame.src = `images/${playerMove}.png`;
+
+  let computerFrame = document.querySelector(".computer");
+  computerFrame.src = `images/${computerMove}.png`;
+}
+
+ 
+
+/*Make RPS clickable*/
+
+function chooseCharacterButtons(){
+
+  let rock = document.querySelector(".rock");  
+  let paper = document.querySelector(".paper");  
+  let scissors = document.querySelector(".scissors");
+  
+  rock.addEventListener("click",function(){play(getComputerMove(), "Rock")});
+  paper.addEventListener("click",function(){play(getComputerMove(), "Paper")});
+  scissors.addEventListener("click",function(){play(getComputerMove(), "Scissors")});
+
+}
+
+chooseCharacterButtons();
+// console.log(grabButton.style);
+
